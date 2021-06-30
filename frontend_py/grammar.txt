@@ -1,0 +1,42 @@
+# Terminals
+# Space ' '
+# '\n'
+# '\'
+# '('
+# ')'
+# '{'
+# '}'
+# '$'
+# '&'
+
+# 1st order
+Environment:   Environment Paragraph
+             | Paragraph
+
+Paragraph:   Paragraph Space Word
+           | Paragraph Space Math
+           | Paragraph Space BaseProgramCall
+           | Paragraph Space BaseProgramAccess
+           | Word
+           | Math
+           | BaseProgramCall
+           | BaseProgramAccess
+           | BlankLine
+
+# 2nd order
+Space: ' '
+
+BaseProgramCall:   '\' IdentifierExpr '(' Args ')'
+                 | '\' IdentifierExpr '{' Raw '}'
+                 | '\' IdentifierExpr
+
+BaseProgramAccess: '{' BaseLanguage '}''
+
+Word:   Word Letter
+      | Letter
+
+Math:   '$'  MathSyntax '$'
+      | '$$' MathSyntax '$$'
+      | '\(' MathSyntax '\)'
+      | '\[' MathSyntax '\]'
+

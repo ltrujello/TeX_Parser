@@ -1,0 +1,20 @@
+WORD
+SPACE
+COMMENT
+EOL
+ESCAPE_CHAR
+SUB                 _
+SUP                 ^
+ALIGN               &
+NEWLINE             \\
+LPAR                (
+RPAR                )
+LSQB                [
+RSQB                ]
+LBRACE              {
+RBRACE              }
+BACKSLASH           \
+STOP_DOLLAR         $
+STOP_DBL_DOLLAR     $$
+STOP_INL_MATH       \)
+STOP_DSP_MATH       \]
