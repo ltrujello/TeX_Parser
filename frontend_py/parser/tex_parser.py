@@ -12,14 +12,13 @@ from frontend_py.lexer.tex_lexer import TeX_Lexer
 class TeX_Parser:
     def __init__(self):
         self.tex_lexer = TeX_Lexer()
-        self.tokens = []
 
     def parse(self, line, pos):
         self.tex_lexer.line = line
         self.tex_lexer.pos = pos
         while True:
             self.cur_tok = self.tex_lexer.get_next_token()
-            print(self.cur_tok)
+            print("TeX Token:", self.cur_tok)
             if self.match_cur_tok('EOF'):
                 return self.cur_tok
             # A space token
@@ -28,7 +27,7 @@ class TeX_Parser:
 
             # A word token
             elif self.match_cur_tok('WORD'):
-                self.add_token("WORD", self.cur_tok.string)
+                self.add_token("WORD", self.cur_tok.value)
 
             # Program access
             elif self.match_cur_tok('LBRACE'):
@@ -63,16 +62,12 @@ class TeX_Parser:
                       f"{self.tex_lexer.pos*' '}^^^\n")
 
     def match_next_token(self, token_str) -> bool:
-        return self.cur_tok.type == token_str
+        return self.cur_tok.name == token_str
 
     def match_cur_tok(self, token_str) -> bool:
-        if self.cur_tok.type == token_str:
-            self.add_token(self.cur_tok, self.cur_tok.type)
+        if self.cur_tok.name == token_str:
             return True
         return False
-
-    def add_token(self, token, string):
-        self.tokens.append((token, string))
 
 # elif self.match_cur_tok('BACKSLASH'):
 #     self.tex_lexer.get_next_token() # Lookahead one token

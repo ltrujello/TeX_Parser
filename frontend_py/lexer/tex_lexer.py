@@ -49,15 +49,15 @@ class TeX_Lexer():
             #           3. A space token => identifier is a variable. Continue scanning
             #   5. Else, we have a syntax error
             self.advance()
-            next = self.get_next_token().string
+            next = self.get_next_token().value
             if next == '(':
-                return Token("L_IL_MATH", "\\(")
+                return Token("L_INL_MATH", "\\(")
             elif next == '[':
-                return Token("L_DP_MATH", "\\[")
+                return Token("L_DSP_MATH", "\\[")
             elif next == ')':
-                return Token("R_IL_MATH", "\\)")
+                return Token("R_INL_MATH", "\\)")
             elif next == ']':
-                return Token("R_DP_MATH", "\\]")
+                return Token("R_DSP_MATH", "\\]")
             elif next == '{':
                 return Token("ESC_LBRACE", "\\{")
             elif next == '}':

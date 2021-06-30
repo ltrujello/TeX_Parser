@@ -50,7 +50,7 @@ class Math_Lexer:
                 return Token('STOP_INL_MATH', "\\)")
             elif next == ']':
                 self.advance()
-                return Token('STOP_DBL_MATH', "\\]")
+                return Token('STOP_DSP_MATH', "\\]")
             else:
                 return Token("BACKSLASH", "\\")
 

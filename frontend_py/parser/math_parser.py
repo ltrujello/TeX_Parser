@@ -12,14 +12,16 @@ from frontend_py.lexer.math_lexer import Math_Lexer
 class Math_Parser:
     def __init__(self):
         self.math_lexer = Math_Lexer()
-        self.tokens = []
 
     def parse(self, line, pos, stop_scan):
         self.math_lexer.line = line
         self.math_lexer.pos = pos
-        while (cur_tok := self.math_lexer.get_next_token()).type != stop_scan.type:
-            self.cur_tok = cur_tok
-            print(self.cur_tok)
+        while True:
+            self.cur_tok = self.math_lexer.get_next_token()
+            print('Math Token:', self.cur_tok)
+
+            if self.match_cur_tok(stop_scan.name):
+                return self.cur_tok
 
             if self.match_cur_tok('EOF'):
                 return self.cur_tok
@@ -67,13 +69,9 @@ class Math_Parser:
                       f"{self.math_lexer.pos*' '}^^^\n")
 
     def match_next_token(self, token_str) -> bool:
-        return self.cur_tok.type == token_str
+        return self.cur_tok.name == token_str
 
     def match_cur_tok(self, token_str) -> bool:
-        if self.cur_tok.type == token_str:
-            self.add_token(self.cur_tok, self.cur_tok.type)
+        if self.cur_tok.name == token_str:
             return True
         return False
-
-    def add_token(self, token, string):
-        self.tokens.append((token, string))

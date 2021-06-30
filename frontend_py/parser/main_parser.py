@@ -8,6 +8,7 @@ class Parser:
         self.line = ""
         self.pos = 0
         self.tokens = []
+        self.expected_tokens = []
 
         self.base_parser = Base_Parser()
         self.tex_parser = TeX_Parser()
@@ -15,7 +16,7 @@ class Parser:
 
         self.cur_tok = Token("", "")
         self.mode = 'TeX'  # Initial state
-        self.stop_scan = "" # Helps break out of and transition to different parsers
+        self.stop_scan = ""  # Helps break out of and transition to different parsers
 
     # XXX Need to be able to recognize numbers and additional characters
     def parse(self):
@@ -30,10 +31,6 @@ class Parser:
                 self.tex_transition()
 
             elif self.mode == 'Math':
-                # XXX We need to make sure these self.parse_* calls do not return None.
-                #     We also need determine whether or not we...
-                #     * Scan the next token, one time after seeing the final stop token
-                #     * Simply return the final stop token
                 self.cur_tok = self.parse_math()  # Stopped and return because we found the stop scan token
                 if self.match_cur_tok('EOF'):
                     break
@@ -61,30 +58,12 @@ class Parser:
         return self.base_parser.parse(self.line, self.pos, self.stop_scan)
 
     def tex_transition(self):
-        if self.match_cur_tok('DOLLAR'):
-            self.mode = 'Math'
-            self.stop_scan = Token("STOP_DOLLAR", "$")
-
-        elif self.match_cur_tok('DBL_DOLLAR'):
-            self.mode = 'Math'
-            self.stop_scan = Token("STOP_DBL_DOLLAR", "$$")
-
-        elif self.match_cur_tok('L_INL_MATH'):
-            self.mode = 'Math'
-            self.stop_scan = Token("STOP_INL_MATH", "\\)")
-
-        elif self.match_cur_tok('L_DSP_MATH'):
-            self.mode = 'Math'
-            self.stop_scan = Token("STOP_DSP_MATH", '\\]')
-
-        elif self.match_cur_tok('LBRACE'):
-            self.mode = 'BaseLanguage'
-            self.stop_scan = Token('PROGRAM_EXIT', "}")
-        else:
-            print(f"Unknown token {self.cur_tok}")
+        self.mode = self.cur_tok.mode
+        self.stop_scan = self.cur_tok.sibling
+        self.expected_tokens.append(self.cur_tok.sibling)
 
     def math_transition(self):
-        if self.match_cur_tok('RBRACE'):
+        if self.match_cur_tok('LBRACE'):
             self.mode = 'BaseLanguage'
             self.stop_scan = Token('PROGRAM_EXIT', "}")
         else:
@@ -96,11 +75,11 @@ class Parser:
         self.stop_scan = Token("EOF", "-1")
 
     def match_next_token(self, token_str) -> bool:
-        return self.cur_tok.type == token_str
+        return self.cur_tok.name == token_str
 
     def match_cur_tok(self, token_str) -> bool:
-        if self.cur_tok.type == token_str:
-            self.add_token(self.cur_tok, self.cur_tok.type)
+        if self.cur_tok.name == token_str:
+            self.add_token(self.cur_tok, self.cur_tok.name)
             return True
         return False
 

@@ -6,15 +6,22 @@ ESCAPE_CHAR
 SUB                 _
 SUP                 ^
 ALIGN               &
-NEWLINE             \\
+NEWLINE             \\\\
 LPAR                (
 RPAR                )
 LSQB                [
 RSQB                ]
 LBRACE              {
-RBRACE              }
-BACKSLASH           \
+SIBLING: RBRACE     }
+BACKSLASH           \\
 STOP_DOLLAR         $
 STOP_DBL_DOLLAR     $$
-STOP_INL_MATH       \)
-STOP_DSP_MATH       \]
+STOP_INL_MATH       \\)
+STOP_DSP_MATH       \\]
+LSUB_GRP            _{
+SIBLING: RSUB_GRP   }
+LSUP_GRP            ^{
+SIBLING: RSUP_GRP   }
+LSET_BRACE          \\{
+RSET_BRACE          \\}
+

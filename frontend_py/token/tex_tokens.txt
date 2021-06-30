@@ -1,0 +1,30 @@
+WORD
+SPACE
+COMMENT
+EOL
+ESCAPE_CHAR
+EOF
+LPAR                (
+RPAR                )
+LSQB                [
+RSQB                ]
+LBRACE              {
+SIBLING: RBRACE     }
+BACKSLASH           \\
+NEWLINE             \\\\
+DOLLAR              $
+DBL_DOLLAR          $$
+L_INL_MATH          \\(
+R_INL_MATH          \\)
+L_DSP_MATH          \\[
+R_DSP_MATH          \\]
+COMMA_SKIP          \\,
+COLON_SKIP          \\:
+SEMIC_SKIP          \\;
+EXCLM_SKIP          \\!
+RCART_SKIP          \\>
+NOBREAK             ~
+L_QUOTE             ``
+R_QUOTE             ''
+
+
