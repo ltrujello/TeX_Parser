@@ -1,0 +1,25 @@
+// Auto-generated from token_generator.py
+#include "token.h"
+Token new_word_token(void);
+Token new_space_token(void);
+Token new_comment_token(void);
+Token new_eol_token(void);
+Token new_escape_char_token(void);
+Token new_sub_token(void);
+Token new_sup_token(void);
+Token new_align_token(void);
+Token new_newline_token(void);
+Token new_lpar_token(void);
+Token new_rpar_token(void);
+Token new_lsqb_token(void);
+Token new_rsqb_token(void);
+Token new_lbrace_token(void);
+Token new_backslash_token(void);
+Token new_stop_dollar_token(void);
+Token new_stop_dbl_dollar_token(void);
+Token new_stop_inl_math_token(void);
+Token new_stop_dsp_math_token(void);
+Token new_lsub_grp_token(void);
+Token new_lsup_grp_token(void);
+Token new_lset_brace_token(void);
+Token new_rset_brace_token(void);
