@@ -1,8 +1,4 @@
-modes = {
-    "tex": 0,
-    "math": 1,
-    "base": 2
-}
+modes = {"tex": 0, "math": 1, "base": 2}
 
 
 def make_token_funcs(mode: str) -> None:
@@ -27,24 +23,31 @@ def make_token_funcs(mode: str) -> None:
             token_name = line_entries[0]
         elif len(line_entries) == 2:  # A Token and a value
             token_name = line_entries[0]
-            value = line_entries[1]
+            value = line_entries[1].replace('\\', '\\\\')
         else:
             num_line_entries(lines[line_num], line_num)
             break
         # Look at the next line
-        if len(next_line_entries := lines[line_num + 1].split()) == 3:  # Occurs when we specified a sibling
-            if next_line_entries[0] == 'sibling:':
+        if (
+            len(next_line_entries := lines[line_num + 1].split()) == 3
+        ):  # Occurs when we specified a sibling
+            if next_line_entries[0] == "sibling:":
                 sibling_name = next_line_entries[1]
+                sibling_value = next_line_entries[2].replace('\\', '\\\\')
+                c_code, h_code = generate_token_code(
+                    sibling_name, sibling_value, modes[mode]
+                )
+                token_c_code.append(c_code)
+                token_h_code.append(h_code + ";\n")
                 line_num += 1
             else:
                 sibling_line_error(lines[line_num], line_num)
                 break
-        c_code, h_code = generate_token_code(token_name,  # Append token C code
-                                                 value,
-                                                 modes[mode],
-                                                 sibling_name)
+        c_code, h_code = generate_token_code(
+            token_name, value, modes[mode], sibling_name
+        )
         token_c_code.append(c_code)
-        token_h_code.append(h_code+";\n")
+        token_h_code.append(h_code + ";\n")
         line_num += 1
 
     # Write .c and .h files
@@ -53,22 +56,19 @@ def make_token_funcs(mode: str) -> None:
         f.write("#include <stdlib.h>\n")
         f.write("#include <stdio.h>\n")
         f.write("#include <string.h>\n")
-        f.write("#include \"token.h\"\n")
+        f.write('#include "token.h"\n')
         f.writelines(token_c_code)
 
     with open(token_h_fp, "w") as f:
         f.write("// Auto-generated from token_generator.py\n")
-        f.write("#include \"token.h\"\n\n")
+        f.write('#include "token.h"\n\n')
         f.writelines(token_h_code)
 
 
-def generate_token_code(token_name,
-                        value,
-                        type,
-                        sibling_name):
+def generate_token_code(token_name, value, type, sibling_name=None):
     declaration = f"Token new_{token_name.lower()}_token(void)"
     if sibling_name is not None:
-        sibling_line = f"{token_name}->sibling = new_{sibling_name}_token)();"
+        sibling_line = f"{token_name}->sibling = new_{sibling_name.lower()}_token();"
     else:
         sibling_line = ""
     token_template = f"""\n

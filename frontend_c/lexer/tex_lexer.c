@@ -20,65 +20,62 @@ Token get_next_token(void){
     if (char == "\\")
         switch (next_char = self.line[self.pos]){
             case "\\":
-                return new_newline_token();
+                return new_t_newline_token();
             case "(":
-                return new_l_inl_math_token();
+                return new_t_l_inl_math_token();
             case ")":
-                return new_r_inl_math_token();
+                return new_t_r_inl_math_token();
             case "[":
-                return new_l_dsp_math_token();
+                return new_t_l_dsp_math_token();
             case "]":
-                return new_r_dsp_math_token();
+                return new_t_r_dsp_math_token();
             case ",":
-                return new_comma_skip_token();
+                return new_t_comma_skip_token();
             case ":":
-                return new_colon_skip_token();
+                return new_t_colon_skip_token();
             case ";":
-                return new_semic_skip_token();
+                return new_t_semic_skip_token();
             case "!":
-                return new_exclm_skip_token();
+                return new_t_exclm_skip_token();
             case ">":
-                return new_rcart_skip_token();
+                return new_t_rcart_skip_token();
       }
     // Two character tokens
     if (cur_char == "$"){
         next_char = line[pos + 1];
         if (next_char == "$")
-            return new_dbl_dollar_token();
+            return new_t_dbl_dollar_token();
     }
     if (cur_char == "`"){
         next_char = line[pos + 1];
         if (next_char == "`")
-            return new_l_quote_token();
+            return new_t_l_quote_token();
     }
     if (cur_char == "'"){
         next_char = line[pos + 1];
         if (next_char == "'")
-            return new_r_quote_token();
+            return new_t_r_quote_token();
     }
 
     // Single character tokens
-    if (cur_char == "(")
-        return new_lpar_token();
-    if (cur_char == ")")
-        return new_rpar_token();
-    if (cur_char == "[")
-        return new_lsqb_token();
-    if (cur_char == "]")
-        return new_rsqb_token();
-    if (cur_char == "{")
-        return new_lbrace_token();
-    if (cur_char == "}")
-        return new_rbrace_token();
-    if (cur_char == "\")
-        return new_backslash_token();
-    if (cur_char == "$")
-        return new_dollar_token();
-    if (cur_char == "~")
-        return new_nobreak_token();
-
-
+    switch(cur_char){   
+        case "("
+            return new_t_lpar_token();
+        case ")"
+            return new_t_rpar_token();
+        case "["
+            return new_t_lsqb_token();
+        case "]"
+            return new_t_rsqb_token();
+        case "{"
+            return new_t_lbrace_token();
+        case "}"
+            return new_t_rbrace_token();
+        case "$"
+            return new_t_dollar_token();
+        case "~"
+            return new_t_nobreak_token();
+   }
 }
-
 
 

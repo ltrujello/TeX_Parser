@@ -20,63 +20,60 @@ Token get_next_token(void){
     if (char == "\\")
         switch (next_char = self.line[self.pos]){
             case "\\":
-                return new_newline_token();
+                return new_m_newline_token();
             case ")":
-                return new_stop_inl_math_token();
+                return new_m_stop_inl_math_token();
             case "]":
-                return new_stop_dsp_math_token();
+                return new_m_stop_dsp_math_token();
             case "{":
-                return new_lset_brace_token();
+                return new_m_lset_brace_token();
             case "}":
-                return new_rset_brace_token();
+                return new_m_rset_brace_token();
       }
     // Two character tokens
     if (cur_char == "$"){
         next_char = line[pos + 1];
         if (next_char == "$")
-            return new_stop_dbl_dollar_token();
+            return new_m_stop_dbl_dollar_token();
     }
     if (cur_char == "_"){
         next_char = line[pos + 1];
         if (next_char == "{")
-            return new_lsub_grp_token();
+            return new_m_lsub_grp_token();
     }
     if (cur_char == "^"){
         next_char = line[pos + 1];
         if (next_char == "{")
-            return new_lsup_grp_token();
+            return new_m_lsup_grp_token();
     }
 
     // Single character tokens
-    if (cur_char == "_")
-        return new_sub_token();
-    if (cur_char == "^")
-        return new_sup_token();
-    if (cur_char == "&")
-        return new_align_token();
-    if (cur_char == "(")
-        return new_lpar_token();
-    if (cur_char == ")")
-        return new_rpar_token();
-    if (cur_char == "[")
-        return new_lsqb_token();
-    if (cur_char == "]")
-        return new_rsqb_token();
-    if (cur_char == "{")
-        return new_lbrace_token();
-    if (cur_char == "}")
-        return new_rbrace_token();
-    if (cur_char == "\")
-        return new_backslash_token();
-    if (cur_char == "$")
-        return new_stop_dollar_token();
-    if (cur_char == "}")
-        return new_rsub_grp_token();
-    if (cur_char == "}")
-        return new_rsup_grp_token();
-
-
+    switch(cur_char){   
+        case "_"
+            return new_m_sub_token();
+        case "^"
+            return new_m_sup_token();
+        case "&"
+            return new_m_align_token();
+        case "("
+            return new_m_lpar_token();
+        case ")"
+            return new_m_rpar_token();
+        case "["
+            return new_m_lsqb_token();
+        case "]"
+            return new_m_rsqb_token();
+        case "{"
+            return new_m_lbrace_token();
+        case "}"
+            return new_m_rbrace_token();
+        case "$"
+            return new_m_stop_dollar_token();
+        case "}"
+            return new_m_rsub_grp_token();
+        case "}"
+            return new_m_rsup_grp_token();
+   }
 }
-
 
 

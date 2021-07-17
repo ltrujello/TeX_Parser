@@ -5,353 +5,327 @@
 #include "token.h"
 
 
-Token new_word_token(void){
-    struct token *WORD = malloc(sizeof *WORD);
-    if (WORD == NULL){
-        printf("Memory allocation for WORD token failed");
+Token new_t_word_token(void){
+    struct token *T_WORD = malloc(sizeof *T_WORD);
+    if (T_WORD == NULL){
+        printf("Memory allocation for T_WORD token failed");
         return NULL;
     }
-    WORD->name = "WORD";
-    WORD->value = "";
-    WORD->type =    0;
+    T_WORD->name = "T_WORD";
+    T_WORD->value = "";
+    T_WORD->type =    0;
     
-    return WORD;
+    return T_WORD;
 }
 
-Token new_space_token(void){
-    struct token *SPACE = malloc(sizeof *SPACE);
-    if (SPACE == NULL){
-        printf("Memory allocation for SPACE token failed");
+Token new_t_space_token(void){
+    struct token *T_SPACE = malloc(sizeof *T_SPACE);
+    if (T_SPACE == NULL){
+        printf("Memory allocation for T_SPACE token failed");
         return NULL;
     }
-    SPACE->name = "SPACE";
-    SPACE->value = "";
-    SPACE->type =    0;
+    T_SPACE->name = "T_SPACE";
+    T_SPACE->value = "";
+    T_SPACE->type =    0;
     
-    return SPACE;
+    return T_SPACE;
 }
 
-Token new_comment_token(void){
-    struct token *COMMENT = malloc(sizeof *COMMENT);
-    if (COMMENT == NULL){
-        printf("Memory allocation for COMMENT token failed");
+Token new_t_eol_token(void){
+    struct token *T_EOL = malloc(sizeof *T_EOL);
+    if (T_EOL == NULL){
+        printf("Memory allocation for T_EOL token failed");
         return NULL;
     }
-    COMMENT->name = "COMMENT";
-    COMMENT->value = "";
-    COMMENT->type =    0;
+    T_EOL->name = "T_EOL";
+    T_EOL->value = "";
+    T_EOL->type =    0;
     
-    return COMMENT;
+    return T_EOL;
 }
 
-Token new_eol_token(void){
-    struct token *EOL = malloc(sizeof *EOL);
-    if (EOL == NULL){
-        printf("Memory allocation for EOL token failed");
+Token new_t_escape_char_token(void){
+    struct token *T_ESCAPE_CHAR = malloc(sizeof *T_ESCAPE_CHAR);
+    if (T_ESCAPE_CHAR == NULL){
+        printf("Memory allocation for T_ESCAPE_CHAR token failed");
         return NULL;
     }
-    EOL->name = "EOL";
-    EOL->value = "";
-    EOL->type =    0;
+    T_ESCAPE_CHAR->name = "T_ESCAPE_CHAR";
+    T_ESCAPE_CHAR->value = "";
+    T_ESCAPE_CHAR->type =    0;
     
-    return EOL;
+    return T_ESCAPE_CHAR;
 }
 
-Token new_escape_char_token(void){
-    struct token *ESCAPE_CHAR = malloc(sizeof *ESCAPE_CHAR);
-    if (ESCAPE_CHAR == NULL){
-        printf("Memory allocation for ESCAPE_CHAR token failed");
+Token new_t_eof_token(void){
+    struct token *T_EOF = malloc(sizeof *T_EOF);
+    if (T_EOF == NULL){
+        printf("Memory allocation for T_EOF token failed");
         return NULL;
     }
-    ESCAPE_CHAR->name = "ESCAPE_CHAR";
-    ESCAPE_CHAR->value = "";
-    ESCAPE_CHAR->type =    0;
+    T_EOF->name = "T_EOF";
+    T_EOF->value = "";
+    T_EOF->type =    0;
     
-    return ESCAPE_CHAR;
+    return T_EOF;
 }
 
-Token new_eof_token(void){
-    struct token *EOF = malloc(sizeof *EOF);
-    if (EOF == NULL){
-        printf("Memory allocation for EOF token failed");
+Token new_t_lpar_token(void){
+    struct token *T_LPAR = malloc(sizeof *T_LPAR);
+    if (T_LPAR == NULL){
+        printf("Memory allocation for T_LPAR token failed");
         return NULL;
     }
-    EOF->name = "EOF";
-    EOF->value = "";
-    EOF->type =    0;
+    T_LPAR->name = "T_LPAR";
+    T_LPAR->value = "(";
+    T_LPAR->type =    0;
     
-    return EOF;
+    return T_LPAR;
 }
 
-Token new_lpar_token(void){
-    struct token *LPAR = malloc(sizeof *LPAR);
-    if (LPAR == NULL){
-        printf("Memory allocation for LPAR token failed");
+Token new_t_rpar_token(void){
+    struct token *T_RPAR = malloc(sizeof *T_RPAR);
+    if (T_RPAR == NULL){
+        printf("Memory allocation for T_RPAR token failed");
         return NULL;
     }
-    LPAR->name = "LPAR";
-    LPAR->value = "(";
-    LPAR->type =    0;
+    T_RPAR->name = "T_RPAR";
+    T_RPAR->value = ")";
+    T_RPAR->type =    0;
     
-    return LPAR;
+    return T_RPAR;
 }
 
-Token new_rpar_token(void){
-    struct token *RPAR = malloc(sizeof *RPAR);
-    if (RPAR == NULL){
-        printf("Memory allocation for RPAR token failed");
+Token new_t_lsqb_token(void){
+    struct token *T_LSQB = malloc(sizeof *T_LSQB);
+    if (T_LSQB == NULL){
+        printf("Memory allocation for T_LSQB token failed");
         return NULL;
     }
-    RPAR->name = "RPAR";
-    RPAR->value = ")";
-    RPAR->type =    0;
+    T_LSQB->name = "T_LSQB";
+    T_LSQB->value = "[";
+    T_LSQB->type =    0;
     
-    return RPAR;
+    return T_LSQB;
 }
 
-Token new_lsqb_token(void){
-    struct token *LSQB = malloc(sizeof *LSQB);
-    if (LSQB == NULL){
-        printf("Memory allocation for LSQB token failed");
+Token new_t_rsqb_token(void){
+    struct token *T_RSQB = malloc(sizeof *T_RSQB);
+    if (T_RSQB == NULL){
+        printf("Memory allocation for T_RSQB token failed");
         return NULL;
     }
-    LSQB->name = "LSQB";
-    LSQB->value = "[";
-    LSQB->type =    0;
+    T_RSQB->name = "T_RSQB";
+    T_RSQB->value = "]";
+    T_RSQB->type =    0;
     
-    return LSQB;
+    return T_RSQB;
 }
 
-Token new_rsqb_token(void){
-    struct token *RSQB = malloc(sizeof *RSQB);
-    if (RSQB == NULL){
-        printf("Memory allocation for RSQB token failed");
+Token new_t_rbrace_token(void){
+    struct token *T_RBRACE = malloc(sizeof *T_RBRACE);
+    if (T_RBRACE == NULL){
+        printf("Memory allocation for T_RBRACE token failed");
         return NULL;
     }
-    RSQB->name = "RSQB";
-    RSQB->value = "]";
-    RSQB->type =    0;
+    T_RBRACE->name = "T_RBRACE";
+    T_RBRACE->value = "}";
+    T_RBRACE->type =    0;
     
-    return RSQB;
+    return T_RBRACE;
 }
 
-Token new_lbrace_token(void){
-    struct token *LBRACE = malloc(sizeof *LBRACE);
-    if (LBRACE == NULL){
-        printf("Memory allocation for LBRACE token failed");
+Token new_t_lbrace_token(void){
+    struct token *T_LBRACE = malloc(sizeof *T_LBRACE);
+    if (T_LBRACE == NULL){
+        printf("Memory allocation for T_LBRACE token failed");
         return NULL;
     }
-    LBRACE->name = "LBRACE";
-    LBRACE->value = "{";
-    LBRACE->type =    0;
-    LBRACE->sibling = new_RBRACE_token)();
-    return LBRACE;
+    T_LBRACE->name = "T_LBRACE";
+    T_LBRACE->value = "{";
+    T_LBRACE->type =    0;
+    T_LBRACE->sibling = new_t_rbrace_token();
+    return T_LBRACE;
 }
 
-Token new_backslash_token(void){
-    struct token *BACKSLASH = malloc(sizeof *BACKSLASH);
-    if (BACKSLASH == NULL){
-        printf("Memory allocation for BACKSLASH token failed");
+Token new_t_newline_token(void){
+    struct token *T_NEWLINE = malloc(sizeof *T_NEWLINE);
+    if (T_NEWLINE == NULL){
+        printf("Memory allocation for T_NEWLINE token failed");
         return NULL;
     }
-    BACKSLASH->name = "BACKSLASH";
-    BACKSLASH->value = "\\";
-    BACKSLASH->type =    0;
+    T_NEWLINE->name = "T_NEWLINE";
+    T_NEWLINE->value = "\\\\";
+    T_NEWLINE->type =    0;
     
-    return BACKSLASH;
+    return T_NEWLINE;
 }
 
-Token new_newline_token(void){
-    struct token *NEWLINE = malloc(sizeof *NEWLINE);
-    if (NEWLINE == NULL){
-        printf("Memory allocation for NEWLINE token failed");
+Token new_t_dollar_token(void){
+    struct token *T_DOLLAR = malloc(sizeof *T_DOLLAR);
+    if (T_DOLLAR == NULL){
+        printf("Memory allocation for T_DOLLAR token failed");
         return NULL;
     }
-    NEWLINE->name = "NEWLINE";
-    NEWLINE->value = "\\\\";
-    NEWLINE->type =    0;
+    T_DOLLAR->name = "T_DOLLAR";
+    T_DOLLAR->value = "$";
+    T_DOLLAR->type =    0;
     
-    return NEWLINE;
+    return T_DOLLAR;
 }
 
-Token new_dollar_token(void){
-    struct token *DOLLAR = malloc(sizeof *DOLLAR);
-    if (DOLLAR == NULL){
-        printf("Memory allocation for DOLLAR token failed");
+Token new_t_dbl_dollar_token(void){
+    struct token *T_DBL_DOLLAR = malloc(sizeof *T_DBL_DOLLAR);
+    if (T_DBL_DOLLAR == NULL){
+        printf("Memory allocation for T_DBL_DOLLAR token failed");
         return NULL;
     }
-    DOLLAR->name = "DOLLAR";
-    DOLLAR->value = "$";
-    DOLLAR->type =    0;
+    T_DBL_DOLLAR->name = "T_DBL_DOLLAR";
+    T_DBL_DOLLAR->value = "$$";
+    T_DBL_DOLLAR->type =    0;
     
-    return DOLLAR;
+    return T_DBL_DOLLAR;
 }
 
-Token new_dbl_dollar_token(void){
-    struct token *DBL_DOLLAR = malloc(sizeof *DBL_DOLLAR);
-    if (DBL_DOLLAR == NULL){
-        printf("Memory allocation for DBL_DOLLAR token failed");
+Token new_t_l_inl_math_token(void){
+    struct token *T_L_INL_MATH = malloc(sizeof *T_L_INL_MATH);
+    if (T_L_INL_MATH == NULL){
+        printf("Memory allocation for T_L_INL_MATH token failed");
         return NULL;
     }
-    DBL_DOLLAR->name = "DBL_DOLLAR";
-    DBL_DOLLAR->value = "$$";
-    DBL_DOLLAR->type =    0;
+    T_L_INL_MATH->name = "T_L_INL_MATH";
+    T_L_INL_MATH->value = "\\(";
+    T_L_INL_MATH->type =    0;
     
-    return DBL_DOLLAR;
+    return T_L_INL_MATH;
 }
 
-Token new_l_inl_math_token(void){
-    struct token *L_INL_MATH = malloc(sizeof *L_INL_MATH);
-    if (L_INL_MATH == NULL){
-        printf("Memory allocation for L_INL_MATH token failed");
+Token new_t_r_inl_math_token(void){
+    struct token *T_R_INL_MATH = malloc(sizeof *T_R_INL_MATH);
+    if (T_R_INL_MATH == NULL){
+        printf("Memory allocation for T_R_INL_MATH token failed");
         return NULL;
     }
-    L_INL_MATH->name = "L_INL_MATH";
-    L_INL_MATH->value = "\\(";
-    L_INL_MATH->type =    0;
+    T_R_INL_MATH->name = "T_R_INL_MATH";
+    T_R_INL_MATH->value = "\\)";
+    T_R_INL_MATH->type =    0;
     
-    return L_INL_MATH;
+    return T_R_INL_MATH;
 }
 
-Token new_r_inl_math_token(void){
-    struct token *R_INL_MATH = malloc(sizeof *R_INL_MATH);
-    if (R_INL_MATH == NULL){
-        printf("Memory allocation for R_INL_MATH token failed");
+Token new_t_l_dsp_math_token(void){
+    struct token *T_L_DSP_MATH = malloc(sizeof *T_L_DSP_MATH);
+    if (T_L_DSP_MATH == NULL){
+        printf("Memory allocation for T_L_DSP_MATH token failed");
         return NULL;
     }
-    R_INL_MATH->name = "R_INL_MATH";
-    R_INL_MATH->value = "\\)";
-    R_INL_MATH->type =    0;
+    T_L_DSP_MATH->name = "T_L_DSP_MATH";
+    T_L_DSP_MATH->value = "\\[";
+    T_L_DSP_MATH->type =    0;
     
-    return R_INL_MATH;
+    return T_L_DSP_MATH;
 }
 
-Token new_l_dsp_math_token(void){
-    struct token *L_DSP_MATH = malloc(sizeof *L_DSP_MATH);
-    if (L_DSP_MATH == NULL){
-        printf("Memory allocation for L_DSP_MATH token failed");
+Token new_t_r_dsp_math_token(void){
+    struct token *T_R_DSP_MATH = malloc(sizeof *T_R_DSP_MATH);
+    if (T_R_DSP_MATH == NULL){
+        printf("Memory allocation for T_R_DSP_MATH token failed");
         return NULL;
     }
-    L_DSP_MATH->name = "L_DSP_MATH";
-    L_DSP_MATH->value = "\\[";
-    L_DSP_MATH->type =    0;
+    T_R_DSP_MATH->name = "T_R_DSP_MATH";
+    T_R_DSP_MATH->value = "\\]";
+    T_R_DSP_MATH->type =    0;
     
-    return L_DSP_MATH;
+    return T_R_DSP_MATH;
 }
 
-Token new_r_dsp_math_token(void){
-    struct token *R_DSP_MATH = malloc(sizeof *R_DSP_MATH);
-    if (R_DSP_MATH == NULL){
-        printf("Memory allocation for R_DSP_MATH token failed");
+Token new_t_comma_skip_token(void){
+    struct token *T_COMMA_SKIP = malloc(sizeof *T_COMMA_SKIP);
+    if (T_COMMA_SKIP == NULL){
+        printf("Memory allocation for T_COMMA_SKIP token failed");
         return NULL;
     }
-    R_DSP_MATH->name = "R_DSP_MATH";
-    R_DSP_MATH->value = "\\]";
-    R_DSP_MATH->type =    0;
+    T_COMMA_SKIP->name = "T_COMMA_SKIP";
+    T_COMMA_SKIP->value = "\\,";
+    T_COMMA_SKIP->type =    0;
     
-    return R_DSP_MATH;
+    return T_COMMA_SKIP;
 }
 
-Token new_comma_skip_token(void){
-    struct token *COMMA_SKIP = malloc(sizeof *COMMA_SKIP);
-    if (COMMA_SKIP == NULL){
-        printf("Memory allocation for COMMA_SKIP token failed");
+Token new_t_colon_skip_token(void){
+    struct token *T_COLON_SKIP = malloc(sizeof *T_COLON_SKIP);
+    if (T_COLON_SKIP == NULL){
+        printf("Memory allocation for T_COLON_SKIP token failed");
         return NULL;
     }
-    COMMA_SKIP->name = "COMMA_SKIP";
-    COMMA_SKIP->value = "\\,";
-    COMMA_SKIP->type =    0;
+    T_COLON_SKIP->name = "T_COLON_SKIP";
+    T_COLON_SKIP->value = "\\:";
+    T_COLON_SKIP->type =    0;
     
-    return COMMA_SKIP;
+    return T_COLON_SKIP;
 }
 
-Token new_colon_skip_token(void){
-    struct token *COLON_SKIP = malloc(sizeof *COLON_SKIP);
-    if (COLON_SKIP == NULL){
-        printf("Memory allocation for COLON_SKIP token failed");
+Token new_t_semic_skip_token(void){
+    struct token *T_SEMIC_SKIP = malloc(sizeof *T_SEMIC_SKIP);
+    if (T_SEMIC_SKIP == NULL){
+        printf("Memory allocation for T_SEMIC_SKIP token failed");
         return NULL;
     }
-    COLON_SKIP->name = "COLON_SKIP";
-    COLON_SKIP->value = "\\:";
-    COLON_SKIP->type =    0;
+    T_SEMIC_SKIP->name = "T_SEMIC_SKIP";
+    T_SEMIC_SKIP->value = "\\;";
+    T_SEMIC_SKIP->type =    0;
     
-    return COLON_SKIP;
+    return T_SEMIC_SKIP;
 }
 
-Token new_semic_skip_token(void){
-    struct token *SEMIC_SKIP = malloc(sizeof *SEMIC_SKIP);
-    if (SEMIC_SKIP == NULL){
-        printf("Memory allocation for SEMIC_SKIP token failed");
+Token new_t_exclm_skip_token(void){
+    struct token *T_EXCLM_SKIP = malloc(sizeof *T_EXCLM_SKIP);
+    if (T_EXCLM_SKIP == NULL){
+        printf("Memory allocation for T_EXCLM_SKIP token failed");
         return NULL;
     }
-    SEMIC_SKIP->name = "SEMIC_SKIP";
-    SEMIC_SKIP->value = "\\;";
-    SEMIC_SKIP->type =    0;
+    T_EXCLM_SKIP->name = "T_EXCLM_SKIP";
+    T_EXCLM_SKIP->value = "\\!";
+    T_EXCLM_SKIP->type =    0;
     
-    return SEMIC_SKIP;
+    return T_EXCLM_SKIP;
 }
 
-Token new_exclm_skip_token(void){
-    struct token *EXCLM_SKIP = malloc(sizeof *EXCLM_SKIP);
-    if (EXCLM_SKIP == NULL){
-        printf("Memory allocation for EXCLM_SKIP token failed");
+Token new_t_rcart_skip_token(void){
+    struct token *T_RCART_SKIP = malloc(sizeof *T_RCART_SKIP);
+    if (T_RCART_SKIP == NULL){
+        printf("Memory allocation for T_RCART_SKIP token failed");
         return NULL;
     }
-    EXCLM_SKIP->name = "EXCLM_SKIP";
-    EXCLM_SKIP->value = "\\!";
-    EXCLM_SKIP->type =    0;
+    T_RCART_SKIP->name = "T_RCART_SKIP";
+    T_RCART_SKIP->value = "\\>";
+    T_RCART_SKIP->type =    0;
     
-    return EXCLM_SKIP;
+    return T_RCART_SKIP;
 }
 
-Token new_rcart_skip_token(void){
-    struct token *RCART_SKIP = malloc(sizeof *RCART_SKIP);
-    if (RCART_SKIP == NULL){
-        printf("Memory allocation for RCART_SKIP token failed");
+Token new_t_nobreak_token(void){
+    struct token *T_NOBREAK = malloc(sizeof *T_NOBREAK);
+    if (T_NOBREAK == NULL){
+        printf("Memory allocation for T_NOBREAK token failed");
         return NULL;
     }
-    RCART_SKIP->name = "RCART_SKIP";
-    RCART_SKIP->value = "\\>";
-    RCART_SKIP->type =    0;
+    T_NOBREAK->name = "T_NOBREAK";
+    T_NOBREAK->value = "~";
+    T_NOBREAK->type =    0;
     
-    return RCART_SKIP;
+    return T_NOBREAK;
 }
 
-Token new_nobreak_token(void){
-    struct token *NOBREAK = malloc(sizeof *NOBREAK);
-    if (NOBREAK == NULL){
-        printf("Memory allocation for NOBREAK token failed");
+Token new_t_l_quote_token(void){
+    struct token *T_L_QUOTE = malloc(sizeof *T_L_QUOTE);
+    if (T_L_QUOTE == NULL){
+        printf("Memory allocation for T_L_QUOTE token failed");
         return NULL;
     }
-    NOBREAK->name = "NOBREAK";
-    NOBREAK->value = "~";
-    NOBREAK->type =    0;
+    T_L_QUOTE->name = "T_L_QUOTE";
+    T_L_QUOTE->value = "``";
+    T_L_QUOTE->type =    0;
     
-    return NOBREAK;
-}
-
-Token new_l_quote_token(void){
-    struct token *L_QUOTE = malloc(sizeof *L_QUOTE);
-    if (L_QUOTE == NULL){
-        printf("Memory allocation for L_QUOTE token failed");
-        return NULL;
-    }
-    L_QUOTE->name = "L_QUOTE";
-    L_QUOTE->value = "``";
-    L_QUOTE->type =    0;
-    
-    return L_QUOTE;
-}
-
-Token new_r_quote_token(void){
-    struct token *R_QUOTE = malloc(sizeof *R_QUOTE);
-    if (R_QUOTE == NULL){
-        printf("Memory allocation for R_QUOTE token failed");
-        return NULL;
-    }
-    R_QUOTE->name = "R_QUOTE";
-    R_QUOTE->value = "''";
-    R_QUOTE->type =    0;
-    
-    return R_QUOTE;
+    return T_L_QUOTE;
 }

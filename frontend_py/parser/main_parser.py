@@ -58,7 +58,7 @@ class Parser:
         return self.base_parser.parse(self.line, self.pos, self.stop_scan)
 
     def tex_transition(self):
-        self.mode = self.cur_tok.mode
+        self.mode = self.cur_tok.type
         self.stop_scan = self.cur_tok.sibling
         self.expected_tokens.append(self.cur_tok.sibling)
 

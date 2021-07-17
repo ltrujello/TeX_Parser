@@ -1,0 +1,26 @@
+M_WORD
+M_SPACE
+M_COMMENT
+M_EOL
+M_ESCAPE_CHAR
+M_SUB                 _
+M_SUP                 ^
+M_ALIGN               &
+M_NEWLINE             \\
+M_LPAR                (
+M_RPAR                )
+M_LSQB                [
+M_RSQB                ]
+M_LBRACE              {
+sibling: M_RBRACE     }
+M_STOP_DOLLAR         $
+M_STOP_DBL_DOLLAR     $$
+M_STOP_INL_MATH       \)
+M_STOP_DSP_MATH       \]
+M_LSUB_GRP            _{
+sibling: M_RSUB_GRP   }
+M_LSUP_GRP            ^{
+sibling: M_RSUP_GRP   }
+M_LSET_BRACE          \{
+M_RSET_BRACE          \}
+

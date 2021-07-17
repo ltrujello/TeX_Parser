@@ -1,0 +1,26 @@
+T_WORD
+T_SPACE
+T_EOL
+T_ESCAPE_CHAR
+T_EOF
+T_LPAR                (
+T_RPAR                )
+T_LSQB                [
+T_RSQB                ]
+T_LBRACE              {
+sibling: T_RBRACE     }
+T_NEWLINE             \\
+T_DOLLAR              $
+T_DBL_DOLLAR          $$
+T_L_INL_MATH          \(
+T_R_INL_MATH          \)
+T_L_DSP_MATH          \[
+T_R_DSP_MATH          \]
+T_COMMA_SKIP          \,
+T_COLON_SKIP          \:
+T_SEMIC_SKIP          \;
+T_EXCLM_SKIP          \!
+T_RCART_SKIP          \>
+T_NOBREAK             ~
+T_L_QUOTE             ``
+T_R_QUOTE             ''

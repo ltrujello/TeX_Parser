@@ -5,301 +5,327 @@
 #include "token.h"
 
 
-Token new_word_token(void){
-    struct token *WORD = malloc(sizeof *WORD);
-    if (WORD == NULL){
-        printf("Memory allocation for WORD token failed");
+Token new_m_word_token(void){
+    struct token *M_WORD = malloc(sizeof *M_WORD);
+    if (M_WORD == NULL){
+        printf("Memory allocation for M_WORD token failed");
         return NULL;
     }
-    WORD->name = "WORD";
-    WORD->value = "";
-    WORD->type =    1;
+    M_WORD->name = "M_WORD";
+    M_WORD->value = "";
+    M_WORD->type =    1;
     
-    return WORD;
+    return M_WORD;
 }
 
-Token new_space_token(void){
-    struct token *SPACE = malloc(sizeof *SPACE);
-    if (SPACE == NULL){
-        printf("Memory allocation for SPACE token failed");
+Token new_m_space_token(void){
+    struct token *M_SPACE = malloc(sizeof *M_SPACE);
+    if (M_SPACE == NULL){
+        printf("Memory allocation for M_SPACE token failed");
         return NULL;
     }
-    SPACE->name = "SPACE";
-    SPACE->value = "";
-    SPACE->type =    1;
+    M_SPACE->name = "M_SPACE";
+    M_SPACE->value = "";
+    M_SPACE->type =    1;
     
-    return SPACE;
+    return M_SPACE;
 }
 
-Token new_comment_token(void){
-    struct token *COMMENT = malloc(sizeof *COMMENT);
-    if (COMMENT == NULL){
-        printf("Memory allocation for COMMENT token failed");
+Token new_m_comment_token(void){
+    struct token *M_COMMENT = malloc(sizeof *M_COMMENT);
+    if (M_COMMENT == NULL){
+        printf("Memory allocation for M_COMMENT token failed");
         return NULL;
     }
-    COMMENT->name = "COMMENT";
-    COMMENT->value = "";
-    COMMENT->type =    1;
+    M_COMMENT->name = "M_COMMENT";
+    M_COMMENT->value = "";
+    M_COMMENT->type =    1;
     
-    return COMMENT;
+    return M_COMMENT;
 }
 
-Token new_eol_token(void){
-    struct token *EOL = malloc(sizeof *EOL);
-    if (EOL == NULL){
-        printf("Memory allocation for EOL token failed");
+Token new_m_eol_token(void){
+    struct token *M_EOL = malloc(sizeof *M_EOL);
+    if (M_EOL == NULL){
+        printf("Memory allocation for M_EOL token failed");
         return NULL;
     }
-    EOL->name = "EOL";
-    EOL->value = "";
-    EOL->type =    1;
+    M_EOL->name = "M_EOL";
+    M_EOL->value = "";
+    M_EOL->type =    1;
     
-    return EOL;
+    return M_EOL;
 }
 
-Token new_escape_char_token(void){
-    struct token *ESCAPE_CHAR = malloc(sizeof *ESCAPE_CHAR);
-    if (ESCAPE_CHAR == NULL){
-        printf("Memory allocation for ESCAPE_CHAR token failed");
+Token new_m_escape_char_token(void){
+    struct token *M_ESCAPE_CHAR = malloc(sizeof *M_ESCAPE_CHAR);
+    if (M_ESCAPE_CHAR == NULL){
+        printf("Memory allocation for M_ESCAPE_CHAR token failed");
         return NULL;
     }
-    ESCAPE_CHAR->name = "ESCAPE_CHAR";
-    ESCAPE_CHAR->value = "";
-    ESCAPE_CHAR->type =    1;
+    M_ESCAPE_CHAR->name = "M_ESCAPE_CHAR";
+    M_ESCAPE_CHAR->value = "";
+    M_ESCAPE_CHAR->type =    1;
     
-    return ESCAPE_CHAR;
+    return M_ESCAPE_CHAR;
 }
 
-Token new_sub_token(void){
-    struct token *SUB = malloc(sizeof *SUB);
-    if (SUB == NULL){
-        printf("Memory allocation for SUB token failed");
+Token new_m_sub_token(void){
+    struct token *M_SUB = malloc(sizeof *M_SUB);
+    if (M_SUB == NULL){
+        printf("Memory allocation for M_SUB token failed");
         return NULL;
     }
-    SUB->name = "SUB";
-    SUB->value = "_";
-    SUB->type =    1;
+    M_SUB->name = "M_SUB";
+    M_SUB->value = "_";
+    M_SUB->type =    1;
     
-    return SUB;
+    return M_SUB;
 }
 
-Token new_sup_token(void){
-    struct token *SUP = malloc(sizeof *SUP);
-    if (SUP == NULL){
-        printf("Memory allocation for SUP token failed");
+Token new_m_sup_token(void){
+    struct token *M_SUP = malloc(sizeof *M_SUP);
+    if (M_SUP == NULL){
+        printf("Memory allocation for M_SUP token failed");
         return NULL;
     }
-    SUP->name = "SUP";
-    SUP->value = "^";
-    SUP->type =    1;
+    M_SUP->name = "M_SUP";
+    M_SUP->value = "^";
+    M_SUP->type =    1;
     
-    return SUP;
+    return M_SUP;
 }
 
-Token new_align_token(void){
-    struct token *ALIGN = malloc(sizeof *ALIGN);
-    if (ALIGN == NULL){
-        printf("Memory allocation for ALIGN token failed");
+Token new_m_align_token(void){
+    struct token *M_ALIGN = malloc(sizeof *M_ALIGN);
+    if (M_ALIGN == NULL){
+        printf("Memory allocation for M_ALIGN token failed");
         return NULL;
     }
-    ALIGN->name = "ALIGN";
-    ALIGN->value = "&";
-    ALIGN->type =    1;
+    M_ALIGN->name = "M_ALIGN";
+    M_ALIGN->value = "&";
+    M_ALIGN->type =    1;
     
-    return ALIGN;
+    return M_ALIGN;
 }
 
-Token new_newline_token(void){
-    struct token *NEWLINE = malloc(sizeof *NEWLINE);
-    if (NEWLINE == NULL){
-        printf("Memory allocation for NEWLINE token failed");
+Token new_m_newline_token(void){
+    struct token *M_NEWLINE = malloc(sizeof *M_NEWLINE);
+    if (M_NEWLINE == NULL){
+        printf("Memory allocation for M_NEWLINE token failed");
         return NULL;
     }
-    NEWLINE->name = "NEWLINE";
-    NEWLINE->value = "\\\\";
-    NEWLINE->type =    1;
+    M_NEWLINE->name = "M_NEWLINE";
+    M_NEWLINE->value = "\\\\";
+    M_NEWLINE->type =    1;
     
-    return NEWLINE;
+    return M_NEWLINE;
 }
 
-Token new_lpar_token(void){
-    struct token *LPAR = malloc(sizeof *LPAR);
-    if (LPAR == NULL){
-        printf("Memory allocation for LPAR token failed");
+Token new_m_lpar_token(void){
+    struct token *M_LPAR = malloc(sizeof *M_LPAR);
+    if (M_LPAR == NULL){
+        printf("Memory allocation for M_LPAR token failed");
         return NULL;
     }
-    LPAR->name = "LPAR";
-    LPAR->value = "(";
-    LPAR->type =    1;
+    M_LPAR->name = "M_LPAR";
+    M_LPAR->value = "(";
+    M_LPAR->type =    1;
     
-    return LPAR;
+    return M_LPAR;
 }
 
-Token new_rpar_token(void){
-    struct token *RPAR = malloc(sizeof *RPAR);
-    if (RPAR == NULL){
-        printf("Memory allocation for RPAR token failed");
+Token new_m_rpar_token(void){
+    struct token *M_RPAR = malloc(sizeof *M_RPAR);
+    if (M_RPAR == NULL){
+        printf("Memory allocation for M_RPAR token failed");
         return NULL;
     }
-    RPAR->name = "RPAR";
-    RPAR->value = ")";
-    RPAR->type =    1;
+    M_RPAR->name = "M_RPAR";
+    M_RPAR->value = ")";
+    M_RPAR->type =    1;
     
-    return RPAR;
+    return M_RPAR;
 }
 
-Token new_lsqb_token(void){
-    struct token *LSQB = malloc(sizeof *LSQB);
-    if (LSQB == NULL){
-        printf("Memory allocation for LSQB token failed");
+Token new_m_lsqb_token(void){
+    struct token *M_LSQB = malloc(sizeof *M_LSQB);
+    if (M_LSQB == NULL){
+        printf("Memory allocation for M_LSQB token failed");
         return NULL;
     }
-    LSQB->name = "LSQB";
-    LSQB->value = "[";
-    LSQB->type =    1;
+    M_LSQB->name = "M_LSQB";
+    M_LSQB->value = "[";
+    M_LSQB->type =    1;
     
-    return LSQB;
+    return M_LSQB;
 }
 
-Token new_rsqb_token(void){
-    struct token *RSQB = malloc(sizeof *RSQB);
-    if (RSQB == NULL){
-        printf("Memory allocation for RSQB token failed");
+Token new_m_rsqb_token(void){
+    struct token *M_RSQB = malloc(sizeof *M_RSQB);
+    if (M_RSQB == NULL){
+        printf("Memory allocation for M_RSQB token failed");
         return NULL;
     }
-    RSQB->name = "RSQB";
-    RSQB->value = "]";
-    RSQB->type =    1;
+    M_RSQB->name = "M_RSQB";
+    M_RSQB->value = "]";
+    M_RSQB->type =    1;
     
-    return RSQB;
+    return M_RSQB;
 }
 
-Token new_lbrace_token(void){
-    struct token *LBRACE = malloc(sizeof *LBRACE);
-    if (LBRACE == NULL){
-        printf("Memory allocation for LBRACE token failed");
+Token new_m_rbrace_token(void){
+    struct token *M_RBRACE = malloc(sizeof *M_RBRACE);
+    if (M_RBRACE == NULL){
+        printf("Memory allocation for M_RBRACE token failed");
         return NULL;
     }
-    LBRACE->name = "LBRACE";
-    LBRACE->value = "{";
-    LBRACE->type =    1;
-    LBRACE->sibling = new_RBRACE_token)();
-    return LBRACE;
-}
-
-Token new_backslash_token(void){
-    struct token *BACKSLASH = malloc(sizeof *BACKSLASH);
-    if (BACKSLASH == NULL){
-        printf("Memory allocation for BACKSLASH token failed");
-        return NULL;
-    }
-    BACKSLASH->name = "BACKSLASH";
-    BACKSLASH->value = "\\";
-    BACKSLASH->type =    1;
+    M_RBRACE->name = "M_RBRACE";
+    M_RBRACE->value = "}";
+    M_RBRACE->type =    1;
     
-    return BACKSLASH;
+    return M_RBRACE;
 }
 
-Token new_stop_dollar_token(void){
-    struct token *STOP_DOLLAR = malloc(sizeof *STOP_DOLLAR);
-    if (STOP_DOLLAR == NULL){
-        printf("Memory allocation for STOP_DOLLAR token failed");
+Token new_m_lbrace_token(void){
+    struct token *M_LBRACE = malloc(sizeof *M_LBRACE);
+    if (M_LBRACE == NULL){
+        printf("Memory allocation for M_LBRACE token failed");
         return NULL;
     }
-    STOP_DOLLAR->name = "STOP_DOLLAR";
-    STOP_DOLLAR->value = "$";
-    STOP_DOLLAR->type =    1;
+    M_LBRACE->name = "M_LBRACE";
+    M_LBRACE->value = "{";
+    M_LBRACE->type =    1;
+    M_LBRACE->sibling = new_m_rbrace_token();
+    return M_LBRACE;
+}
+
+Token new_m_stop_dollar_token(void){
+    struct token *M_STOP_DOLLAR = malloc(sizeof *M_STOP_DOLLAR);
+    if (M_STOP_DOLLAR == NULL){
+        printf("Memory allocation for M_STOP_DOLLAR token failed");
+        return NULL;
+    }
+    M_STOP_DOLLAR->name = "M_STOP_DOLLAR";
+    M_STOP_DOLLAR->value = "$";
+    M_STOP_DOLLAR->type =    1;
     
-    return STOP_DOLLAR;
+    return M_STOP_DOLLAR;
 }
 
-Token new_stop_dbl_dollar_token(void){
-    struct token *STOP_DBL_DOLLAR = malloc(sizeof *STOP_DBL_DOLLAR);
-    if (STOP_DBL_DOLLAR == NULL){
-        printf("Memory allocation for STOP_DBL_DOLLAR token failed");
+Token new_m_stop_dbl_dollar_token(void){
+    struct token *M_STOP_DBL_DOLLAR = malloc(sizeof *M_STOP_DBL_DOLLAR);
+    if (M_STOP_DBL_DOLLAR == NULL){
+        printf("Memory allocation for M_STOP_DBL_DOLLAR token failed");
         return NULL;
     }
-    STOP_DBL_DOLLAR->name = "STOP_DBL_DOLLAR";
-    STOP_DBL_DOLLAR->value = "$$";
-    STOP_DBL_DOLLAR->type =    1;
+    M_STOP_DBL_DOLLAR->name = "M_STOP_DBL_DOLLAR";
+    M_STOP_DBL_DOLLAR->value = "$$";
+    M_STOP_DBL_DOLLAR->type =    1;
     
-    return STOP_DBL_DOLLAR;
+    return M_STOP_DBL_DOLLAR;
 }
 
-Token new_stop_inl_math_token(void){
-    struct token *STOP_INL_MATH = malloc(sizeof *STOP_INL_MATH);
-    if (STOP_INL_MATH == NULL){
-        printf("Memory allocation for STOP_INL_MATH token failed");
+Token new_m_stop_inl_math_token(void){
+    struct token *M_STOP_INL_MATH = malloc(sizeof *M_STOP_INL_MATH);
+    if (M_STOP_INL_MATH == NULL){
+        printf("Memory allocation for M_STOP_INL_MATH token failed");
         return NULL;
     }
-    STOP_INL_MATH->name = "STOP_INL_MATH";
-    STOP_INL_MATH->value = "\\)";
-    STOP_INL_MATH->type =    1;
+    M_STOP_INL_MATH->name = "M_STOP_INL_MATH";
+    M_STOP_INL_MATH->value = "\\)";
+    M_STOP_INL_MATH->type =    1;
     
-    return STOP_INL_MATH;
+    return M_STOP_INL_MATH;
 }
 
-Token new_stop_dsp_math_token(void){
-    struct token *STOP_DSP_MATH = malloc(sizeof *STOP_DSP_MATH);
-    if (STOP_DSP_MATH == NULL){
-        printf("Memory allocation for STOP_DSP_MATH token failed");
+Token new_m_stop_dsp_math_token(void){
+    struct token *M_STOP_DSP_MATH = malloc(sizeof *M_STOP_DSP_MATH);
+    if (M_STOP_DSP_MATH == NULL){
+        printf("Memory allocation for M_STOP_DSP_MATH token failed");
         return NULL;
     }
-    STOP_DSP_MATH->name = "STOP_DSP_MATH";
-    STOP_DSP_MATH->value = "\\]";
-    STOP_DSP_MATH->type =    1;
+    M_STOP_DSP_MATH->name = "M_STOP_DSP_MATH";
+    M_STOP_DSP_MATH->value = "\\]";
+    M_STOP_DSP_MATH->type =    1;
     
-    return STOP_DSP_MATH;
+    return M_STOP_DSP_MATH;
 }
 
-Token new_lsub_grp_token(void){
-    struct token *LSUB_GRP = malloc(sizeof *LSUB_GRP);
-    if (LSUB_GRP == NULL){
-        printf("Memory allocation for LSUB_GRP token failed");
+Token new_m_rsub_grp_token(void){
+    struct token *M_RSUB_GRP = malloc(sizeof *M_RSUB_GRP);
+    if (M_RSUB_GRP == NULL){
+        printf("Memory allocation for M_RSUB_GRP token failed");
         return NULL;
     }
-    LSUB_GRP->name = "LSUB_GRP";
-    LSUB_GRP->value = "_{";
-    LSUB_GRP->type =    1;
-    LSUB_GRP->sibling = new_RSUB_GRP_token)();
-    return LSUB_GRP;
-}
-
-Token new_lsup_grp_token(void){
-    struct token *LSUP_GRP = malloc(sizeof *LSUP_GRP);
-    if (LSUP_GRP == NULL){
-        printf("Memory allocation for LSUP_GRP token failed");
-        return NULL;
-    }
-    LSUP_GRP->name = "LSUP_GRP";
-    LSUP_GRP->value = "^{";
-    LSUP_GRP->type =    1;
-    LSUP_GRP->sibling = new_RSUP_GRP_token)();
-    return LSUP_GRP;
-}
-
-Token new_lset_brace_token(void){
-    struct token *LSET_BRACE = malloc(sizeof *LSET_BRACE);
-    if (LSET_BRACE == NULL){
-        printf("Memory allocation for LSET_BRACE token failed");
-        return NULL;
-    }
-    LSET_BRACE->name = "LSET_BRACE";
-    LSET_BRACE->value = "\\{";
-    LSET_BRACE->type =    1;
+    M_RSUB_GRP->name = "M_RSUB_GRP";
+    M_RSUB_GRP->value = "}";
+    M_RSUB_GRP->type =    1;
     
-    return LSET_BRACE;
+    return M_RSUB_GRP;
 }
 
-Token new_rset_brace_token(void){
-    struct token *RSET_BRACE = malloc(sizeof *RSET_BRACE);
-    if (RSET_BRACE == NULL){
-        printf("Memory allocation for RSET_BRACE token failed");
+Token new_m_lsub_grp_token(void){
+    struct token *M_LSUB_GRP = malloc(sizeof *M_LSUB_GRP);
+    if (M_LSUB_GRP == NULL){
+        printf("Memory allocation for M_LSUB_GRP token failed");
         return NULL;
     }
-    RSET_BRACE->name = "RSET_BRACE";
-    RSET_BRACE->value = "\\}";
-    RSET_BRACE->type =    1;
+    M_LSUB_GRP->name = "M_LSUB_GRP";
+    M_LSUB_GRP->value = "_{";
+    M_LSUB_GRP->type =    1;
+    M_LSUB_GRP->sibling = new_m_rsub_grp_token();
+    return M_LSUB_GRP;
+}
+
+Token new_m_rsup_grp_token(void){
+    struct token *M_RSUP_GRP = malloc(sizeof *M_RSUP_GRP);
+    if (M_RSUP_GRP == NULL){
+        printf("Memory allocation for M_RSUP_GRP token failed");
+        return NULL;
+    }
+    M_RSUP_GRP->name = "M_RSUP_GRP";
+    M_RSUP_GRP->value = "}";
+    M_RSUP_GRP->type =    1;
     
-    return RSET_BRACE;
+    return M_RSUP_GRP;
+}
+
+Token new_m_lsup_grp_token(void){
+    struct token *M_LSUP_GRP = malloc(sizeof *M_LSUP_GRP);
+    if (M_LSUP_GRP == NULL){
+        printf("Memory allocation for M_LSUP_GRP token failed");
+        return NULL;
+    }
+    M_LSUP_GRP->name = "M_LSUP_GRP";
+    M_LSUP_GRP->value = "^{";
+    M_LSUP_GRP->type =    1;
+    M_LSUP_GRP->sibling = new_m_rsup_grp_token();
+    return M_LSUP_GRP;
+}
+
+Token new_m_lset_brace_token(void){
+    struct token *M_LSET_BRACE = malloc(sizeof *M_LSET_BRACE);
+    if (M_LSET_BRACE == NULL){
+        printf("Memory allocation for M_LSET_BRACE token failed");
+        return NULL;
+    }
+    M_LSET_BRACE->name = "M_LSET_BRACE";
+    M_LSET_BRACE->value = "\\{";
+    M_LSET_BRACE->type =    1;
+    
+    return M_LSET_BRACE;
+}
+
+Token new_m_rset_brace_token(void){
+    struct token *M_RSET_BRACE = malloc(sizeof *M_RSET_BRACE);
+    if (M_RSET_BRACE == NULL){
+        printf("Memory allocation for M_RSET_BRACE token failed");
+        return NULL;
+    }
+    M_RSET_BRACE->name = "M_RSET_BRACE";
+    M_RSET_BRACE->value = "\\}";
+    M_RSET_BRACE->type =    1;
+    
+    return M_RSET_BRACE;
 }

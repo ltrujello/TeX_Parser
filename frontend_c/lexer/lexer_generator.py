@@ -23,22 +23,26 @@ Token get_next_token(void){
 
     // Single character tokens
 
-
 }
 
-
 """
+
 
 def make_lexer(mode: str) -> None:
     tokens_fp = f"../../grammar/{mode}_tokens.txt"
     lexer_fp = f"{mode}_lexer.c"
+    # For backslash tokens
     match_backslash_tokens = []
     backslash_switch_stmt = """\
     if (char == "\\\\")
         switch (next_char = self.line[self.pos]){
 """
-    end_switch = "      }"  # Two tabs in front
-
+    end_backslash_switch = "      }"  # Two tabs in front
+    # Single tokens
+    single_tok_switch_stmt = """\
+    switch(cur_char){   
+"""
+    end_single_tok_switch = "   }"  # One tab in front
     match_single_tokens = []
     match_two_tokens = []
 
@@ -48,13 +52,15 @@ def make_lexer(mode: str) -> None:
     line_num = 0
     while line_num < len(lines):
         line_entries = lines[line_num].split()
-        if len(line_entries) == 0 or len(line_entries) == 1:  # Skip a blank line, or a token with no value
+        n_entries = len(line_entries)
+        # Skips blanks or lines with no value
+        if n_entries == 0 or n_entries == 1:
             line_num += 1
             continue
-        elif len(line_entries) == 3:  # Occurs when we specified a sibling
+        elif n_entries == 3:  # Occurs when we specified a sibling
             token_name = line_entries[1]
             value = line_entries[2]
-        elif len(line_entries) == 2:  # A Token and a value
+        elif n_entries == 2:  # A Token and a value
             token_name = line_entries[0]
             value = line_entries[1]
 
@@ -65,10 +71,15 @@ def make_lexer(mode: str) -> None:
             print(lines[line_num])
             first_char = value[0]
             next_char = value[1]
+            print(next_char)
             if first_char == "\\":
-                match_backslash_tokens.append(match_backslash_and_char(token_name, next_char))
+                match_backslash_tokens.append(
+                    match_backslash_and_char(token_name, next_char)
+                )
             else:
-                match_two_tokens.append(match_two_chars(token_name, first_char, next_char))
+                match_two_tokens.append(
+                    match_two_chars(token_name, first_char, next_char)
+                )
         line_num += 1
     print(match_backslash_tokens)
     # Write the generated C code
@@ -82,25 +93,30 @@ def make_lexer(mode: str) -> None:
                     if first_word == "Backslash":
                         f.write(backslash_switch_stmt)
                         f.writelines(match_backslash_tokens)
-                        f.write(end_switch)
+                        f.write(end_backslash_switch)
                     elif first_word == "Single":
+                        f.write(single_tok_switch_stmt)
                         f.writelines(match_single_tokens)
+                        f.write(end_single_tok_switch)
                     elif first_word == "Two":
                         f.writelines(match_two_tokens)
 
+
 def make_tex_lexer():
-    make_lexer('tex')
+    make_lexer("tex")
+
 
 def make_math_lexer():
-    make_lexer('math')
+    make_lexer("math")
 
 
 def match_one_char(token_name, char):
     c_code = f"""\
-    if (cur_char == "{char}")
-        return new_{token_name.lower()}_token();
+        case "{char}"
+            return new_{token_name.lower()}_token();
 """
     return c_code
+
 
 def match_two_chars(token_name, char, next_char):
     c_code = f"""\
@@ -111,6 +127,7 @@ def match_two_chars(token_name, char, next_char):
     }}
 """
     return c_code
+
 
 def match_backslash_and_char(token_name, next_char):
     if next_char == "\\":
