@@ -1,28 +1,59 @@
 // Auto-generated from token_generator.py
+#ifndef TEX_COMPILER_TOKEN_VALUES_H
+#define TEX_COMPILER_TOKEN_VALUES_H
 #include "token.h"
 
-Token new_m_word_token(void);
-Token new_m_space_token(void);
-Token new_m_comment_token(void);
-Token new_m_eol_token(void);
-Token new_m_escape_char_token(void);
-Token new_m_sub_token(void);
-Token new_m_sup_token(void);
-Token new_m_align_token(void);
-Token new_m_newline_token(void);
-Token new_m_lpar_token(void);
-Token new_m_rpar_token(void);
-Token new_m_lsqb_token(void);
-Token new_m_rsqb_token(void);
-Token new_m_rbrace_token(void);
-Token new_m_lbrace_token(void);
-Token new_m_stop_dollar_token(void);
-Token new_m_stop_dbl_dollar_token(void);
-Token new_m_stop_inl_math_token(void);
-Token new_m_stop_dsp_math_token(void);
-Token new_m_rsub_grp_token(void);
-Token new_m_lsub_grp_token(void);
-Token new_m_rsup_grp_token(void);
-Token new_m_lsup_grp_token(void);
-Token new_m_lset_brace_token(void);
-Token new_m_rset_brace_token(void);
+
+Token new_t_word_token(void);
+
+Token new_t_space_token(void);
+
+Token new_t_eol_token(void);
+
+Token new_t_escape_char_token(void);
+
+Token new_t_eof_token(void);
+
+Token new_t_lpar_token(void);
+
+Token new_t_rpar_token(void);
+
+Token new_t_lsqb_token(void);
+
+Token new_t_rsqb_token(void);
+
+Token new_t_lbrace_token(void);
+
+Token new_t_rbrace_token(void);
+
+Token new_t_newline_token(void);
+
+Token new_t_dollar_token(void);
+
+Token new_t_dbl_dollar_token(void);
+
+Token new_t_l_inl_math_token(void);
+
+Token new_t_r_inl_math_token(void);
+
+Token new_t_l_dsp_math_token(void);
+
+Token new_t_r_dsp_math_token(void);
+
+Token new_t_comma_skip_token(void);
+
+Token new_t_colon_skip_token(void);
+
+Token new_t_semic_skip_token(void);
+
+Token new_t_exclm_skip_token(void);
+
+Token new_t_rcart_skip_token(void);
+
+Token new_t_nobreak_token(void);
+
+Token new_t_l_quote_token(void);
+
+Token new_t_r_quote_token(void);
+
+#endif //TEX_COMPILER_TOKEN_VALUES_H

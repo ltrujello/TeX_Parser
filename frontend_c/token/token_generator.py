@@ -1,105 +1,143 @@
 modes = {"tex": 0, "math": 1, "base": 2}
 
 
-def make_token_funcs(mode: str) -> None:
-    token_fp = f"../../grammar/{mode}_tokens.txt"
-    token_c_code = []
-    token_h_code = []
-    token_c_fp = f"{mode}_tokens.c"
-    token_h_fp = f"{mode}_tokens.h"
+class TokenScanner:
+    def __init__(self, token_fp, type):
+        self.token_fp = token_fp
+        self.token_c_fp = f"{type}_tokens.c"
+        self.token_h_fp = f"{type}_tokens.h"
+        self.type = type
+        self.tokens = []
 
-    with open(token_fp, "r") as f:
-        lines = f.readlines()
-    line_num = 0
-    while line_num < len(lines) - 1:  # We check two lines at a time.
-        line_entries = lines[line_num].split()
-        token_name = None
-        value = ""
-        sibling_name = None
-        if len(line_entries) == 0:  # Skip a blank line
-            line_num += 1
-            continue
-        if len(line_entries) == 1:  # A Token, with no value
-            token_name = line_entries[0]
-        elif len(line_entries) == 2:  # A Token and a value
-            token_name = line_entries[0]
-            value = line_entries[1].replace('\\', '\\\\')
-        else:
-            num_line_entries(lines[line_num], line_num)
-            break
-        # Look at the next line
-        if (
-            len(next_line_entries := lines[line_num + 1].split()) == 3
-        ):  # Occurs when we specified a sibling
-            if next_line_entries[0] == "sibling:":
-                sibling_name = next_line_entries[1]
-                sibling_value = next_line_entries[2].replace('\\', '\\\\')
-                c_code, h_code = generate_token_code(
-                    sibling_name, sibling_value, modes[mode]
-                )
-                token_c_code.append(c_code)
-                token_h_code.append(h_code + ";\n")
-                line_num += 1
+    def scan_token_file(self):
+        # Loop over the file lines and collect the tokens and their siblings using the tokens class below.
+        with open(self.token_fp) as f:
+            lines = f.readlines()
+        i = 0
+        while i < len(lines):
+            # Find the first non blank line
+            while i < len(lines):
+                if (curr_line := lines[i].strip()) == "":  # Skip blank lines
+                    i += 1
+                else:
+                    break
+            # Find the second non blank line, if possible:
+            next_line = ""
+            while i < len(lines) - 1:
+                if (next_line := lines[i+1].strip()) == "":
+                    i += 1
+                else:
+                    break
+            # At this point we have curr_line and next_line with token data
+            token_name, token_value = self.get_token_data(curr_line)
+            curr_token = Token(token_name, token_value, modes[self.type])
+            self.tokens.append(curr_token)
+            if self.is_sibling_statement(next_line):
+                sibling_name, sibling_value = self.get_token_data(next_line)
+                curr_token.sibling = Token(sibling_name, sibling_value, modes[self.type])
+                # i += 1
+            i += 1
+
+    def write_token_files(self):
+        # Create the tokens .c and .h file.
+        token_func_defns = []
+        token_declarations = []
+        token_c_preamble =\
+"""// Auto-generated from token_generator.py
+#include <stdlib.h> 
+#include <stdio.h>   
+#include <string.h>
+#include "tex_tokens.h"  
+#include "token.h"\n
+"""
+        token_h_preamble =\
+"""// Auto-generated from token_generator.py
+#ifndef TEX_COMPILER_TOKEN_VALUES_H
+#define TEX_COMPILER_TOKEN_VALUES_H
+#include "token.h"\n\n
+"""
+        # Now we loop over the tokens and write their functions
+        for token in self.tokens:
+            declaration = f"Token new_{token.name.lower()}_token(void);\n\n"
+            if token.sibling is not None:
+                sibling_line = f"{token.name}->sibling = new_{token.sibling.name.lower()}_token();"
             else:
-                sibling_line_error(lines[line_num], line_num)
-                break
-        c_code, h_code = generate_token_code(
-            token_name, value, modes[mode], sibling_name
-        )
-        token_c_code.append(c_code)
-        token_h_code.append(h_code + ";\n")
-        line_num += 1
-
-    # Write .c and .h files
-    with open(token_c_fp, "w") as f:
-        f.write("// Auto-generated from token_generator.py\n")
-        f.write("#include <stdlib.h>\n")
-        f.write("#include <stdio.h>\n")
-        f.write("#include <string.h>\n")
-        f.write('#include "token.h"\n')
-        f.writelines(token_c_code)
-
-    with open(token_h_fp, "w") as f:
-        f.write("// Auto-generated from token_generator.py\n")
-        f.write('#include "token.h"\n\n')
-        f.writelines(token_h_code)
-
-
-def generate_token_code(token_name, value, type, sibling_name=None):
-    declaration = f"Token new_{token_name.lower()}_token(void)"
-    if sibling_name is not None:
-        sibling_line = f"{token_name}->sibling = new_{sibling_name.lower()}_token();"
-    else:
-        sibling_line = ""
-    token_template = f"""\n
-{declaration}{{
-    struct token *{token_name} = malloc(sizeof *{token_name});
-    if ({token_name} == NULL){{
-        printf("Memory allocation for {token_name} token failed");
+                sibling_line = ""
+            token_C_template =\
+f"""
+Token new_{token.name.lower()}_token(void){{
+    Token {token.name} = malloc(sizeof *{token.name});
+    if ({token.name} == NULL){{
+        printf("Memory allocation for {token.name} token failed");
         return NULL;
     }}
-    {token_name}->name = "{token_name}";
-    {token_name}->value = "{value}";
-    {token_name}->type =    {type};
+    {token.name}->name  = strdup("{token.name}");
+    {token.name}->value = strdup("{token.value}");
+    {token.name}->type  = {token.type};
     {sibling_line}
-    return {token_name};
-}}"""
-    return token_template, declaration
+    return {token.name};
+}}\n
+"""         # Append the function definition
+            token_declarations.append(declaration)
+            token_func_defns.append(token_C_template)
+
+        # Write the header file with our declarations
+        with open(self.token_h_fp, "w") as f:
+            f.write(token_h_preamble)
+            f.writelines(token_declarations)
+            f.write("#endif //TEX_COMPILER_TOKEN_VALUES_H\n")
+
+        # Write the .c file with our definitions
+        with open(self.token_c_fp, "w") as f:
+            f.write(token_c_preamble)
+            f.writelines(token_func_defns)
 
 
-def make_tex_tokens():
-    make_token_funcs("tex")
+    def is_sibling_statement(self, next_line):
+        if next_line == "":
+            return False
+        elif next_line.split()[0] == "sibling:":
+            return True
+        else:
+            return False
+
+    def get_token_data(self, line):
+        line_entries = line.split()
+        n_entries = len(line_entries)
+
+        if n_entries == 1:
+            return line_entries[0], None
+        if n_entries == 2:
+            return line_entries[0], line_entries[1].replace("\\", "\\\\") # Escape \ for C
+        if n_entries == 3:
+            if line_entries[0] == "sibling:":
+                return line_entries[1], line_entries[2].replace("\\", "\\\\")
+            else:
+                raise SyntaxError(f"Unknown keyword {line_entries[0]}; expecting \"sibling:\"")
+        else:
+            raise SyntaxError(f"Too many values: {line}")
 
 
-def make_math_tokens():
-    make_token_funcs("math")
+def terminal_scanner(terminal_fp: str) -> None:
+    macro_stmts = []
+    with open(terminal_fp) as f:
+        for ind, line in enumerate(f.readlines()):
+            line_entries = line.split()
+            n_entries = len(line_entries)
 
+            if n_entries != 2:
+                raise SyntaxError(f"Too many or too few line entries for a terminal: {line}")
+            macro_stmt = f"#define {line_entries[0]} {ind} \n"
+            macro_stmts.append(macro_stmt)
 
-def sibling_line_error(line, line_num):
-    print(f"First entry in line {line_num} is not 'sibling'")
-    print(line)
+    with open("token_values.h", "w") as f:
+        f.write("// Auto-generated from token_generator.py\n")
+        f.writelines(macro_stmts)
 
+class Token:
+    def __init__(self, name, value, type):
+        self.name = name
+        self.value = value
+        self.type = type
+        self.sibling = None
 
-def num_line_entries(line, line_num):
-    print(f"Too many entries in line {line_num + 1}:")
-    print(line)
