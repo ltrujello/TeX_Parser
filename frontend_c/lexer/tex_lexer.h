@@ -3,6 +3,7 @@
 
 #include "../Token/token.h"
 
-Token get_next_token(void);
+Token get_next_token(char first_char, char second_char);
 
 #endif //TEX_COMPILER_TEX_LEXER_H
+            

@@ -16,3 +16,4 @@ RANGLE                  >
 SINGLEQTE               '
 CARET                   ^
 AMPER                   &
+UNDERSCORE              _
